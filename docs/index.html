@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pycosec — Matrix COSEC biometric Python library</title>
+  <meta name="description" content="pycosec is a Python 3.10+ library for Matrix COSEC biometric devices: users, attendance, credentials, and device settings over HTTP Basic auth.">
+  <meta name="keywords" content="pycosec, COSEC, Matrix, biometric, Python, attendance API, fingerprint, face recognition, LGPL">
+  <meta name="author" content="Sreethul Krishna">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ksreethul.github.io/pycosec/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="pycosec — Matrix COSEC biometric Python library">
+  <meta property="og:description" content="Integrate COSEC biometric devices from Python: user management, attendance events, credentials, and configuration.">
+  <meta property="og:url" content="https://ksreethul.github.io/pycosec/">
+  <meta property="og:site_name" content="pycosec">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="pycosec — Matrix COSEC biometric Python library">
+  <meta name="twitter:description" content="Python library for COSEC biometric devices: users, attendance, credentials, and device settings.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "pycosec",
+    "description": "Matrix COSEC biometric Python integration library for device configuration, users, attendance, and credentials.",
+    "license": "https://www.gnu.org/licenses/lgpl-2.1.html",
+    "codeRepository": "https://github.com/KSreethul/pycosec",
+    "programmingLanguage": "Python",
+    "runtimePlatform": "Python 3.10+",
+    "url": "https://ksreethul.github.io/pycosec/",
+    "author": {
+      "@type": "Person",
+      "name": "Sreethul Krishna",
+      "email": "sreethulkrishna24@gmail.com"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --border: #2d3a4d;
+      --text: #e8eef4;
+      --muted: #9bb0c8;
+      --accent: #3d9cfd;
+      --accent-dim: #2563eb;
+      --success: #34d399;
+      --radius: 12px;
+      --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", Consolas, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+
+    .lede {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 38em;
+      margin: 0;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .pill {
+      font-size: 0.8125rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    section {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+    }
+
+    p { margin: 0 0 1rem; color: var(--muted); }
+    p:last-child { margin-bottom: 0; }
+
+    ul.feature-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--muted);
+    }
+    ul.feature-list li { margin-bottom: 0.5rem; }
+    ul.feature-list li:last-child { margin-bottom: 0; }
+
+    .install-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .install-block h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem;
+      color: var(--text);
+    }
+
+    pre, code {
+      font-family: var(--mono);
+      font-size: 0.875rem;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre;
+      color: var(--text);
+    }
+
+    .links {
+      display: grid;
+      gap: 0.75rem;
+    }
+    @media (min-width: 520px) {
+      .links { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .links a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.1rem;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .links a:hover {
+      border-color: var(--accent-dim);
+      background: #1e2a3d;
+    }
+    .links a span.desc {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      padding-top: 2rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">Documentation</span>
+      <h1>pycosec</h1>
+      <p class="lede">
+        Python library for <strong style="color: var(--text);">Matrix COSEC</strong> biometric devices:
+        configure devices, manage users and credentials, and read attendance events using the COSEC HTTP API with Basic authentication.
+      </p>
+      <div class="pill-row" aria-label="Package facts">
+        <span class="pill">Python 3.10+</span>
+        <span class="pill">requests ≥ 2.0</span>
+        <span class="pill">LGPL-2.1-or-later</span>
+        <span class="pill">v0.1.0</span>
+      </div>
+    </header>
+
+    <main>
+      <section id="overview" aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Package overview</h2>
+        <p>
+          <strong style="color: var(--text);">pycosec</strong> exposes a high-level client (<code>COSECBiometric</code>) so you can script
+          operations that would otherwise require manual device UI or low-level API work: IP and time settings, access control,
+          user CRUD, templates (fingerprint, card, palm, face), attendance logs, alarms, doors, and timers.
+        </p>
+        <ul class="feature-list">
+          <li>Device settings: network, time, access, alarms, doors, enrollment, Wiegand, smart card format, and more.</li>
+          <li>User lifecycle: add, update, delete; face recognition toggles; credential counts and deletion.</li>
+          <li>Attendance: retrieve punch-in / punch-out style events from the device.</li>
+          <li>Transport: plain HTTP to the device with HTTP Basic auth (as used by the COSEC API).</li>
+        </ul>
+      </section>
+
+      <section id="install" aria-labelledby="install-heading">
+        <h2 id="install-heading">Installation</h2>
+        <p>Install from PyPI (recommended) or from a git clone of this repository.</p>
+
+        <div class="install-block">
+          <h3>PyPI</h3>
+          <pre><code>pip install pycosec</code></pre>
+        </div>
+
+        <div class="install-block">
+          <h3>From source</h3>
+          <pre><code>git clone https://github.com/KSreethul/pycosec.git
+cd pycosec
+pip install .</code></pre>
+        </div>
+      </section>
+
+      <section id="quickstart" aria-labelledby="quickstart-heading">
+        <h2 id="quickstart-heading">Quick start</h2>
+        <div class="install-block">
+          <pre><code>from pycosec import COSECBiometric
+
+device = COSECBiometric(
+    machine_ip="192.168.1.100",
+    port=80,
+    username="admin",
+    password="password",
+)
+
+print("Users:", device.get_user_count())
+events = device.get_attendance_events(no_of_events=50)
+print(events)</code></pre>
+        </div>
+        <p style="margin-top: 1rem;">
+          For the full method list (configuration, users, credentials), see the
+          <a href="https://github.com/KSreethul/pycosec#readme" style="color: var(--accent);">README on GitHub</a>.
+        </p>
+      </section>
+
+      <section id="links" aria-labelledby="links-heading">
+        <h2 id="links-heading">Project links</h2>
+        <div class="links">
+          <a href="https://github.com/KSreethul/pycosec">
+            GitHub repository
+            <span class="desc">Source code, issues, and contributions</span>
+          </a>
+          <a href="https://github.com/KSreethul/pycosec/issues">
+            Issue tracker
+            <span class="desc">Report bugs and request features</span>
+          </a>
+          <a href="https://pypi.org/project/pycosec/">
+            PyPI package
+            <span class="desc">Published releases and pip install</span>
+          </a>
+          <a href="https://www.gnu.org/licenses/lgpl-2.1.html">
+            License (LGPL-2.1+)
+            <span class="desc">Terms of use for the library</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Maintained by Sreethul Krishna.
+        If you fork or rename the GitHub repository, update the canonical URL, <code>sitemap.xml</code>, and <code>robots.txt</code>
+        in the <code>docs/</code> folder to match your GitHub Pages site address.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

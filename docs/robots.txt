@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ksreethul.github.io/pycosec/sitemap.xml
